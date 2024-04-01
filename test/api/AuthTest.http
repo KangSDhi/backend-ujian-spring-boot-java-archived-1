@@ -1,0 +1,8 @@
+POST {{host}}/api/auth/signin
+Accept: application/json
+Content-Type: application/json
+
+{
+  "emailOrIdPes": "kangadmin@gmail.com",
+  "password": "qwerty"
+}

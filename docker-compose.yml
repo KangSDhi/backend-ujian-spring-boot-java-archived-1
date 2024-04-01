@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+
+  db:
+    image: mariadb:10.6.17
+    container_name: backend-ujian-spring-boot-java-dev-db
+
+    ports:
+      - 3010:3306
+
+    environment:
+      MARIADB_ROOT_PASSWORD: 'toor'
+      MARIADB_DATABASE: 'ujian-db'
+      MARIADB_USER: 'spring'
+      MARIADB_PASSWORD: 'boot'
+
+    volumes:
+      - backend-ujian-spring-boot-java-dev-data:/var/lib/mysql
+
+    networks:
+      - backend-ujian-spring-boot-java-dev-net
+
+  pma:
+    image: elestio/phpmyadmin:5.2.1.1
+    container_name: backend-ujian-spring-boot-java-dev-pma
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+    ports:
+      - 8110:80
+    networks:
+      - backend-ujian-spring-boot-java-dev-net
+
+volumes:
+  backend-ujian-spring-boot-java-dev-data:
+    driver: local
+
+networks:
+  backend-ujian-spring-boot-java-dev-net:
+    driver: bridge
