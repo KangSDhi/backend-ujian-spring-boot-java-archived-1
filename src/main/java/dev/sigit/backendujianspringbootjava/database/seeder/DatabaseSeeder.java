@@ -17,12 +17,16 @@ public class DatabaseSeeder {
     AdminSeeder adminSeeder;
 
     @Autowired
+    GuruSeeder guruSeeder;
+
+    @Autowired
     SiswaSeeder siswaSeeder;
 
     @EventListener
     public void seed(ContextRefreshedEvent event) throws ParseException {
         jurusanSeeder.createJurusan();
         adminSeeder.createAdmin();
+        guruSeeder.createGuru();
         siswaSeeder.createSiswa();
     }
 }
