@@ -34,20 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final JWTService jwtService;
 
     @Override
-    public Pengguna signUpSiswa(SignUpSiswaRequest signUpSiswaRequest) {
-        Pengguna pengguna = new Pengguna();
-
-        pengguna.setNama(signUpSiswaRequest.getNama());
-        pengguna.setIdPeserta(signUpSiswaRequest.getIdPeserta());
-        pengguna.setEmail(signUpSiswaRequest.getEmail());
-        pengguna.setPassword(passwordEncoder.encode(signUpSiswaRequest.getPassword()));
-        pengguna.setRolePengguna(RolePengguna.SISWA);
-
-        return penggunaRepository.save(pengguna);
-    }
-
-    @Override
-    public SignInResponse signIn(SignInRequest signInRequest) throws ExecutionException, InterruptedException {
+    public SignInResponse signIn(SignInRequest signInRequest) {
 
         new Pengguna();
         Pengguna user;
@@ -55,24 +42,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (validateEmail(signInRequest.getEmailOrIdPes())){
             user = penggunaRepository.findByEmail(signInRequest.getEmailOrIdPes()).orElseThrow(() -> new UsernameNotFoundException("Email atau Password Salah!"));
             if (user != null && passwordEncoder.matches(signInRequest.getPassword(), user.getPassword())){
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getEmailOrIdPes(), signInRequest.getPassword()));
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getNama(), signInRequest.getPassword()));
             } else {
                 throw new UsernameNotFoundException("Email atau Password Salah");
             }
         }else {
             Pengguna pengguna = penggunaRepository.findByIdPeserta(signInRequest.getEmailOrIdPes()).orElseThrow(() -> new UsernameNotFoundException("ID Peserta atau Password Salah!"));
             if (pengguna != null && passwordEncoder.matches(signInRequest.getPassword(), pengguna.getPassword())) {
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(pengguna.getEmail(), signInRequest.getPassword()));
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(pengguna.getNama(), signInRequest.getPassword()));
                 user = pengguna;
             } else {
                 throw new UsernameNotFoundException("ID Peserta atau Password Salah!");
             }
         }
 
-        CompletableFuture<String> jwt = jwtService.generateToken(user);
+        String jwt = jwtService.generateToken(user);
 
         SignInResponse signInResponse = new SignInResponse();
-        signInResponse.setToken(jwt.get());
+        signInResponse.setToken(jwt);
 
         return signInResponse;
     }

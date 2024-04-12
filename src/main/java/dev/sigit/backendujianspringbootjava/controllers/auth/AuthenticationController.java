@@ -23,7 +23,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/signin")
-    public ResponseEntity<SignInResponse> signin(@Valid @RequestBody SignInRequest signInRequest) throws ExecutionException, InterruptedException {
+    public ResponseEntity<SignInResponse> signin(@Valid @RequestBody SignInRequest signInRequest) {
         return ResponseEntity.ok(authenticationService.signIn(signInRequest));
     }
 }

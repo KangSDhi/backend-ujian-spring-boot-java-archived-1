@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return penggunaRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                return penggunaRepository.findByNama(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
     }

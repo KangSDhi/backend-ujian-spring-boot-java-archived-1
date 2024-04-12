@@ -9,7 +9,7 @@ public interface JWTService {
 
     String extractUserName(String token);
 
-    CompletableFuture<String> generateToken(UserDetails userDetails);
+    String generateToken(UserDetails userDetails);
 
     boolean isTokenValid(String token, UserDetails userDetails);
 

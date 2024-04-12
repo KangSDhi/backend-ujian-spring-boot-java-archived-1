@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class GuruSeeder {
 
@@ -17,7 +19,7 @@ public class GuruSeeder {
     private PasswordEncoder passwordEncoder;
 
     public void createGuru(){
-        Pengguna pengguna = penggunaRepository.findByRolePengguna(RolePengguna.GURU);
+        Pengguna pengguna = penggunaRepository.findFirstByRolePengguna(RolePengguna.GURU);
         if (pengguna == null){
             Pengguna guruBaru = new Pengguna();
             guruBaru.setNama("Kang Guru");
@@ -25,6 +27,8 @@ public class GuruSeeder {
             guruBaru.setIdPeserta(null);
             guruBaru.setPassword(passwordEncoder.encode("ytrewq"));
             guruBaru.setRolePengguna(RolePengguna.GURU);
+            guruBaru.setCreatedAt(new Date());
+            guruBaru.setUpdatedAt(new Date());
             penggunaRepository.save(guruBaru);
             System.out.println("Membuat Data Guru Baru ✅");
         }

@@ -12,7 +12,11 @@ public interface PenggunaRepository extends JpaRepository<Pengguna, Long> {
 
     Optional<Pengguna> findByEmail(String email);
 
+    Optional<Pengguna> findByNama(String nama);
+
     Optional<Pengguna> findByIdPeserta(String idPeserta);
 
     Pengguna findByRolePengguna(RolePengguna rolePengguna);
+
+    Pengguna findFirstByRolePengguna(RolePengguna rolePengguna);
 }

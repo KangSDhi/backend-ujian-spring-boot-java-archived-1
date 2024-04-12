@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class SiswaSeeder {
 
@@ -17,14 +19,17 @@ public class SiswaSeeder {
     private PasswordEncoder passwordEncoder;
 
     public void createSiswa(){
-        Pengguna pengguna = penggunaRepository.findByRolePengguna(RolePengguna.SISWA);
+        Pengguna pengguna = penggunaRepository.findFirstByRolePengguna(RolePengguna.SISWA);
         if (pengguna == null){
             Pengguna siswaBaru = new Pengguna();
             siswaBaru.setNama("Siswa Fake");
             siswaBaru.setEmail("siswa@fake.com");
             siswaBaru.setIdPeserta("SAJ-2003-33399");
             siswaBaru.setPassword(passwordEncoder.encode("qwertyu"));
+            siswaBaru.setPasswordPlain("qwertyu");
             siswaBaru.setRolePengguna(RolePengguna.SISWA);
+            siswaBaru.setCreatedAt(new Date());
+            siswaBaru.setUpdatedAt(new Date());
             penggunaRepository.save(siswaBaru);
             System.out.println("Membuat Data Siswa Baru ✅");
         }

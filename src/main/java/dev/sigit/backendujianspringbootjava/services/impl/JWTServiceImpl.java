@@ -26,13 +26,13 @@ public class JWTServiceImpl implements JWTService {
     private Long accessTokenValidity;
 
     @Override
-    public CompletableFuture<String> generateToken(UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails) {
         String token = JWT.create()
                 .withSubject(userDetails.getUsername())
                 .withIssuedAt(new Date(System.currentTimeMillis()))
                 .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.MINUTES.toMillis(accessTokenValidity)))
                 .sign(Algorithm.HMAC256(secretKey));
-        return CompletableFuture.completedFuture(token);
+        return token;
     }
 
     @Override

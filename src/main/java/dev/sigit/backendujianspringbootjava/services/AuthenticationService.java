@@ -8,7 +8,5 @@ import dev.sigit.backendujianspringbootjava.entities.Pengguna;
 import java.util.concurrent.ExecutionException;
 
 public interface AuthenticationService {
-    Pengguna signUpSiswa(SignUpSiswaRequest signUpSiswaRequest);
-
-    SignInResponse signIn(SignInRequest signInRequest) throws ExecutionException, InterruptedException;
+    SignInResponse signIn(SignInRequest signInRequest);
 }

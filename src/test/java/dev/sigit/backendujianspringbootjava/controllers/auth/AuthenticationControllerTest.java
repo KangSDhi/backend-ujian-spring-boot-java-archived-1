@@ -47,7 +47,7 @@ class AuthenticationControllerTest {
 
     private static final String JWT_INVALID_FORMAT = "eyJhbGciOizI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrYW5nYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNzExODIwNTI1LCJleHAiOjE3MTE5MDY5MjV9.kavpKWnKmfvLVMetBVDA2e6AvuK5B8j94S48-Ghxqz0";
 
-    private static final String JWT_EXPIRED = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJrYW5nYWRtaW5AZ21haWwuY29tIiwiaWF0IjoxNzExODIwNzEyLCJleHAiOjE3MTE4MjA3MTN9.r5AN92QXI6FdnJDYhxigfSd8NIONMxibPOTZs5t0vuw";
+    private static final String JWT_EXPIRED = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJLYW5nIEFkbWluIiwiaWF0IjoxNzEyMDMyOTM4LCJleHAiOjE3MTIwMzI5NDB9.nPlaaDoUNeLsCWxP-TYH3Jb8qS24RWRfxC_ap94lgR4";
 
     @Test
     @Order(1)

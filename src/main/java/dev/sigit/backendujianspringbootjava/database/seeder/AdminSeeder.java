@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class AdminSeeder {
 
@@ -17,7 +19,7 @@ public class AdminSeeder {
     private PasswordEncoder passwordEncoder;
 
     public void createAdmin(){
-        Pengguna pengguna = penggunaRepository.findByRolePengguna(RolePengguna.ADMIN);
+        Pengguna pengguna = penggunaRepository.findFirstByRolePengguna(RolePengguna.ADMIN);
         if (pengguna == null){
             Pengguna adminBaru = new Pengguna();
             adminBaru.setNama("Kang Admin");
@@ -25,6 +27,8 @@ public class AdminSeeder {
             adminBaru.setIdPeserta(null);
             adminBaru.setPassword(passwordEncoder.encode("qwerty"));
             adminBaru.setRolePengguna(RolePengguna.ADMIN);
+            adminBaru.setCreatedAt(new Date());
+            adminBaru.setUpdatedAt(new Date());
             penggunaRepository.save(adminBaru);
             System.out.println("Membuat Data Admin Baru ✅");
         }
